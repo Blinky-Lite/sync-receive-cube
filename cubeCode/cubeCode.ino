@@ -4,7 +4,7 @@
 #define RF95_FREQ 434
 #define TRANSADDR 23
 
-#define BAUD_RATE 9600
+#define BAUD_RATE 57600
 #define RFM95_CS 8
 #define RFM95_RST 4
 #define RFM95_INT 3
@@ -91,6 +91,7 @@ boolean processData(TransmitData* tData, ReceiveData* rData)
       {
         pin12Value = !pin12Value;
         digitalWrite(12, pin12Value);
+        tData->signalStrength = rf95.lastRssi();
         timeLineRestart = true;
       }
     }
