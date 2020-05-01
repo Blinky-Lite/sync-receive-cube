@@ -29,12 +29,15 @@ struct ReceiveData
   unsigned long channelBeginTime[4];
   unsigned long channelEndTime[4];
   byte channelStateMask[4];
+  int statusLedChannel = 0;
 };
 
 void setupPins(TransmitData* tData, ReceiveData* rData)
 {
   pinMode(12, OUTPUT);
   digitalWrite(12, pin12Value);
+  pinMode(9, OUTPUT);
+  digitalWrite(9, false);
   pinMode(RFM95_RST, OUTPUT);
   digitalWrite(RFM95_RST, HIGH);
   
@@ -60,9 +63,9 @@ void setupPins(TransmitData* tData, ReceiveData* rData)
   }
   
 // Test data
-  rData->channelStateMask[0] = 1;
-  rData->channelBeginTime[0] = 1000;
-  rData->channelEndTime[0] = 2000;
+//  rData->channelStateMask[0] = 1;
+//  rData->channelBeginTime[0] = 1000;
+//  rData->channelEndTime[0] = 2000;
 
 }
 void processNewSetting(TransmitData* tData, ReceiveData* rData, ReceiveData* newData)
@@ -73,6 +76,7 @@ void processNewSetting(TransmitData* tData, ReceiveData* rData, ReceiveData* new
     rData->channelEndTime[ic] = newData->channelEndTime[ic];
     rData->channelStateMask[ic] = newData->channelStateMask[ic];
   }
+  rData->statusLedChannel = newData->statusLedChannel;
 }
 boolean processData(TransmitData* tData, ReceiveData* rData)
 {
@@ -108,6 +112,7 @@ boolean processData(TransmitData* tData, ReceiveData* rData)
     }
     digitalWrite(channelPin[ic], channelHigh[ic]);
   }  
+  digitalWrite(9, channelHigh[rData->statusLedChannel]);
   return timeLineRestart;
 }
 
