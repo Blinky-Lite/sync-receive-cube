@@ -63,9 +63,9 @@ void setupPins(TransmitData* tData, ReceiveData* rData)
   }
   
 // Test data
-//  rData->channelStateMask[0] = 1;
-//  rData->channelBeginTime[0] = 1000;
-//  rData->channelEndTime[0] = 2000;
+  rData->channelStateMask[0] = 1;
+  rData->channelBeginTime[0] = 1000;
+  rData->channelEndTime[0] = 51000;
 
 }
 void processNewSetting(TransmitData* tData, ReceiveData* rData, ReceiveData* newData)
