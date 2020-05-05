@@ -559,6 +559,7 @@
 class RH_RF95 : public RHSPIDriver
 {
 public:
+  unsigned long packetTime = 0;  // added by dmcginnis427
     /// \brief Defines register values for a set of modem configuration registers
     ///
     /// Defines register values for a set of modem configuration registers

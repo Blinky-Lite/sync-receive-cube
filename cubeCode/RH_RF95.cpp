@@ -172,7 +172,8 @@ void RH_RF95::handleInterrupt()
     else if (_mode == RHModeRx && irq_flags & RH_RF95_RX_DONE)
     {
 	// Have received a packet
-	uint8_t len = spiRead(RH_RF95_REG_13_RX_NB_BYTES);
+  packetTime = micros(); // added by dmcginnis427
+ 	uint8_t len = spiRead(RH_RF95_REG_13_RX_NB_BYTES);
 
 	// Reset the fifo read ptr to the beginning of the packet
 	spiWrite(RH_RF95_REG_0D_FIFO_ADDR_PTR, spiRead(RH_RF95_REG_10_FIFO_RX_CURRENT_ADDR));
